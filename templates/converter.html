@@ -1,0 +1,53 @@
+<!--
+from flask import Flask, render_template, request, redirect, url_for, flash
+import PIL
+
+app = Flask("Different Brushes Test")
+
+@app.route("/")
+def index():
+    return render_template("index.html")
+
+# The converter will first get the normal image, then grayscale it, then erase all pieces that are entirely white, then convert it to a 1-bit image (black), and then save it as a .cebt file (basically PNG but with a different extension)
+@app.route('/converter', methods=['GET', 'POST'])
+def converter():
+    if request.method == 'POST':
+        # Get the image from the form
+        image = request.files['image']
+        # Save the image to the server
+        image.save('static/images/image.png')
+        # Open the image
+        image = PIL.Image.open('static/images/image.png')
+        # Convert the image to grayscale
+        image = image.convert('L')
+        # Erase all pieces that are entirely white
+        image = PIL.Image.eval(image, lambda x: 255 if x == 255 else 0)
+        # Convert the image to a 1-bit image (black)
+        image = image.convert('1')
+        # Save the image as a .cebt file (basically PNG but with a different extension)
+        image.save('static/images/image.cebt')
+        # Do not redirect, return the image instead
+        return render_template('converter.html', image=image)
+    else:
+        return render_template('converter.html')
+
+app.run('0.0.0.0', 8080, debug=True)
+-->
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Different Brushes Test</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/converter.css') }}">
+    </head>
+    <body>
+        <h1>Different Brushes Test</h1>
+        <form action="/converter" method="POST" enctype="multipart/form-data">
+            <input type="file" name="image" accept="image/*">
+            <input type="submit" value="Convert">
+        </form>
+        {% if image %}
+            <img src="{{ url_for('static', filename='images/image.cebt') }}">
+        {% endif %}
+    </body>
+</html>
