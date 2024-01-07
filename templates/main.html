@@ -10,10 +10,46 @@
     </script>
 </head>
 <body>
-<div class = "mainButtons" >
-  <button id="Brush-btn">Brush</button>
+<div class = "systemButtons">
+  <button id = "CheckedBoard">CheckedBoard</button>
+  <button id = "Clear-All">Clear All</button>
+  <button id = "Fill-btn">Fill All</button>
+  <button id = "Download-btn">Download</button>
+  <button id="BlackBoard">BlackBoard</button>
 </div>
-<canvas id = "board" height = "900" width = "1700"></canvas>
+<div class = "mainButtons" >
+  <button id = "Pencil-btn">Pencil</button>
+  <button id="Brush-btn">Brush</button>
+  <button id = "Marker-btn">Marker</button>
+  <button id="Eraser-btn">Eraser</button>
+  <button id = "FillNotFull">FillNotFull</button>
+  <button id = "Text-btn">Text</button>
+  <input id = "TextInput">
+  
+</div>
+<div class = "colorButtons">
+  <button id = "Red-btn">Red</button>
+  <button id = "Blue-btn">Blue</button>
+  <button id = "Green-btn">Green</button>
+  <button id = "Yellow-btn">Yellow</button>
+  <button id = "Black-btn">Black</button>
+  <button id = "White-btn">White</button>
+  <button id = "Orange-btn">Orange</button>
+  <button id = "Pink-btn">Pink</button>
+  <button id = "Purple-btn">Purple</button>
+  <button id = "Brown-btn">Brown</button>
+  <button id = "Grey-btn">Grey</button>
+  <button id = "CustomColor-btn">Custom</button>
+  <input id = "color" type = "text" placeholder = "Type here...">
+</div>
+<div class = "shapesButtons">
+  <button id = "Line-btn">Line</button>
+</div>
+<div class = "extraButtons">
+  <input name = "Thickness" id = "Thickness" value = "10">
+  <label for = "Thickness">Thickness</label>
+</div>
+<canvas id = "board" height = "900" width = "1700" onload="Checkedboard(checkers.jpg)"></canvas>
     
 </body>
 </html>
