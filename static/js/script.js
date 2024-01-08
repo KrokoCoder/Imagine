@@ -1,8 +1,40 @@
 var drawOnCanvas; // Define drawOnCanvas globally
 var currentColor = "#000000";
+var context;
 var lineWidth = [0, 5, 10, 20, 30, 40, 50, 75, 100]
 var font = "Arial";
 var fontSize = 30;
+var shapeMakerList = {
+    "line": function(x1, y1, x2, y2) {
+        context.beginPath();
+        context.moveTo(x1, y1);
+        context.lineTo(x2, y2);
+        context.stroke();
+    },
+    "circle": function(x, y, radius, startAngle, endAngle, anticlockwise) {
+        context.beginPath();
+        context.arc(x, y, radius, startAngle, endAngle, anticlockwise);
+        context.stroke();
+    },
+    "rectangle": function(x, y, width, height) {
+        context.beginPath();
+        context.rect(x, y, width, height);
+        context.stroke();
+    },
+    "triangle": function(x1, y1, x2, y2, x3, y3) {
+        context.beginPath();
+        context.moveTo(x1, y1);
+        context.lineTo(x2, y2);
+        context.lineTo(x3, y3);
+        context.closePath();
+        context.stroke();
+    },
+    "square": function(x, y, size) {
+        context.beginPath();
+        context.rect(x, y, size, size);
+        context.stroke();
+    },
+};
 
 
 function BrushPaint() {
@@ -293,9 +325,60 @@ function LineWidthChanger() {
 function CheckedBoard(){
     var canvas = document.getElementById('board');
     var context = document.getContext('2d');
-    context = canvas.style = "background-image: url('static/images/checkers.jpg')"
+    canvas.style = "background-image: none";
+    context.style = canvas.style = "background-image: url('static/images/checkers.jpg')";
     
 }
+function LineBtn() {
+    var canvas = document.getElementById('board');
+    var context = canvas.getContext('2d');
+    context.beginPath();
+    shapeMakerList["line"](10, 10, 100, 100);
+    context.strokeStyle = currentColor;
+    context.stroke();
+    document.body.appendChild(canvas);
+}
+
+function CircleBtn() {
+    var canvas = document.getElementById('board');
+    var context = canvas.getContext('2d');
+    context.beginPath();
+    shapeMakerList["circle"](100, 75, 50, 0, 2 * Math.PI);
+    context.strokeStyle = currentColor;
+    context.stroke();
+    document.body.appendChild(canvas);
+}
+
+function RectangleBtn() {
+    var canvas = document.getElementById('board');
+    var context = canvas.getContext('2d');
+    context.beginPath();
+    shapeMakerList["rectangle"](10, 10, 100, 100);
+    context.strokeStyle = currentColor;
+    context.stroke();
+    document.body.appendChild(canvas);
+}
+
+function TriangleBtn() {
+    var canvas = document.getElementById('board');
+    var context = canvas.getContext('2d');
+    context.beginPath();
+    shapeMakerList["triangle"](10, 10, 100, 100, 200, 200);
+    context.strokeStyle = currentColor;
+    context.stroke();
+    document.body.appendChild(canvas);
+}
+
+function SquareBtn() {
+    var canvas = document.getElementById('board');
+    var context = canvas.getContext('2d');
+    context.beginPath();
+    shapeMakerList["square"](10, 10, 100);
+    context.strokeStyle = currentColor;
+    context.stroke();
+    document.body.appendChild(canvas);
+}
+
 function TextBtn() {
     var canvas = document.getElementById("board");
     var context = canvas.getContext("2d");
@@ -358,8 +441,6 @@ window.onload = function (){
     clearAllButton.addEventListener('click', ClearBoard);
     const FillButton = document.getElementById("Fill-btn");
     FillButton.addEventListener('click', Fill);
-    const CircleButton = document.getElementById("Circle-btn");
-    CircleButton.addEventListener('click', Circle);
     const BlackBoardButton = document.getElementById("BlackBoard");
     BlackBoardButton.addEventListener('click', BlackBoard);
     const TextBtn = document.getElementById("Text-btn");
@@ -374,4 +455,16 @@ window.onload = function (){
     MarkerButton.addEventListener('click', Marker);
     const DownloadButton = document.getElementById("Download-btn");
     DownloadButton.addEventListener('click', DownloadImage);
+    const CheckedBoardButton = document.getElementById("CheckedBoard");
+    CheckedBoardButton.addEventListener('click', CheckedBoard);
+    const LineBtn = document.getElementById("Line-btn");
+    LineBtn.addEventListener('click', LineBtn);
+    const CircleBtn = document.getElementById("Circle-btn");
+    CircleBtn.addEventListener('click', CircleBtn);
+    const RectangleBtn = document.getElementById("Rectangle-btn");
+    RectangleBtn.addEventListener('click', RectangleBtn);
+    const TriangleBtn = document.getElementById("Triangle-btn");
+    TriangleBtn.addEventListener('click', TriangleBtn);
+    const SquareBtn = document.getElementById("Square-btn");
+    SquareBtn.addEventListener('click', SquareBtn);
 }
