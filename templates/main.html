@@ -23,8 +23,16 @@
   <button id = "Marker-btn">Marker</button>
   <button id="Eraser-btn">Eraser</button>
   <button id = "FillNotFull">FillNotFull</button>
+</div>
+<div class = "textButtons"></div>
   <button id = "Text-btn">Text</button>
-  <input id = "TextInput">
+  <input type="text" id="text" placeholder="text" onKeydown="drawText();"></input>
+  <button id = "fontChange">Change</button>
+  <input type ="text" id = "size" placeholder="font" onKeydown="updateFont();"></input>
+  <button id = "sizeChange">Change</button>
+  <input type = "text" id = "font" placeholder = "size" onKeydown = "updateSize();"></input>
+
+</body>
   
 </div>
 <div class = "colorButtons">
@@ -39,8 +47,10 @@
   <button id = "Purple-btn">Purple</button>
   <button id = "Brown-btn">Brown</button>
   <button id = "Grey-btn">Grey</button>
+  <button id = "LightBlue-btn">LightBlue</button>
+  <button id = "Flesh-btn">Flesh</button>
   <button id = "CustomColor-btn">Custom</button>
-  <input id = "color" type = "text" placeholder = "Type here...">
+  
 </div>
 <div class = "shapesButtons">
   <button id = "Line-btn">Line</button>
@@ -48,10 +58,27 @@
   <button id = "Circle-btn">Circle</button>
   <button id = "Triangle-btn">Triangle</button>
   <button id = "Square-btn">Square</button>
+  <button id = "Tetragon-btn">Tetragon</button>
 </div>
-<div class = "extraButtons">
+<div class = "extraInputs">
   <input name = "Thickness" id = "Thickness" value = "10">
   <label for = "Thickness">Thickness</label>
+  <input name = "Opacity" id = "Opacity" value = "1">
+  <label for = "Opacity">Opacity</label><br>
+  <input type = "text" id = "mouseXinput" placeholder="Center X">
+  <input type = "text" id = "mouseYinput" placeholder="Center Y"><br>
+  <input type = "text" id = "sideInput" placeholder="length">
+  <input type = "text" id = "sideInput2" placeholder="width"><br>
+  <input type = "text" id = "rotationAngleInput" placeholder="angle">
+  <input type = "text" id = "radiusInput" placeholder="radius"><br>
+  <input type = "text" id = "side1Input" placeholder="side1">
+  <input type = "text" id = "side2Input" placeholder="side2">
+  <input type = "text" id = "side3Input" placeholder="side3">
+  <input type = "text" id = "side4Input" placeholder="side4"><br>
+  <input type = "text" id = "angle1Input" placeholder="angle1">
+  <input type = "text" id = "angle2Input" placeholder="angle2">
+  <input type = "text" id = "angle3Input" placeholder="angle3">
+  <input type = "text" id = "angle4Input" placeholder="angle4"><br>
 </div>
 <canvas id = "board" height = "900" width = "1700" onload="Checkedboard(checkers.jpg)"></canvas>
     
