@@ -474,58 +474,33 @@ function Triangle() {
     var triangles = [];
   
     // Get values from inputs, handling potential errors
-    var mouseXInput = document.getElementById("mouseXinput");
-    var mouseYInput = document.getElementById("mouseYinput");
-    var side1LengthInput = document.getElementById("side1Input");
-    var side2LengthInput = document.getElementById("side2Input");
-    var side3LengthInput = document.getElementById("side3Input");
-    var angle1Input = document.getElementById("angle1Input");
-    var angle2Input = document.getElementById("angle2Input");
-    var angle3Input = document.getElementById("angle3Input");
-    var mouseX = parseFloat(mouseXInput.value) || 0;
-    var mouseY = parseFloat(mouseYInput.value) || 0;
-    var side1 = parseFloat(side1LengthInput.value) || 10;
-    var side2 = parseFloat(side2LengthInput.value) || 10;
-    var side3 = parseFloat(side3LengthInput.value) || 10;
-    var angle1 = parseFloat(angle1Input.value) || 0;
-    var angle2 = parseFloat(angle2Input.value) || 0;
-    var angle3 = parseFloat(angle3Input.value) || 0;
+    var mouseXInput = parseInt(document.getElementById("mouseXinput").value);
+    var mouseYInput = parseInt(document.getElementById("mouseYinput").value);
+    var side1Input = parseInt(document.getElementById("sideInput").value);
   
-    // Ensure angles add up to 180 degrees
-    var totalAngles = angle1 + angle2 + angle3;
-    if (totalAngles !== 180) {
-      console.warn("Invalid angles: Triangle angles must add up to 180 degrees. Adjusting angles.");
-      // Adjust angles to 180 (e.g., reduce each angle proportionally)
-    }
+    // Ensure angles add up to 180 degrees (not implemented in the original code)
   
     var triangle1 = {
-      centerX: mouseX,
-      centerY: mouseY,
-      side1length: side1,
-      side2length: side2,
-      side3length: side3,
-      angle1deg: angle1,
-      angle2deg: angle2,
-      angle3deg: angle3
+      centerX: mouseXInput,
+      centerY: mouseYInput,
+      side1length: side1Input,
     };
   
     triangles.push(triangle1);
   
-  
     for (var i = 0; i < triangles.length; i++) {
       var tr = triangles[i];
       context.beginPath();
-  
-      // Calculate triangle coordinates using side lengths and angles
-      // (Implement appropriate calculation logic here)
-      // ...
-  
+      context.moveTo(tr.centerX, tr.centerY);
+      context.lineTo(tr.centerX + tr.side1length, tr.centerY);
+      context.lineTo(tr.centerX + tr.side1length, tr.centerY + tr.side1length);
       context.closePath();
-      context.fillStyle = currentColor; // Assuming `currentColor` is defined elsewhere
+      context.fillStyle = 'currentColor'; // Assuming `currentColor` is defined elsewhere
       context.fill();
       context.stroke();
     }
-  }
+}
+
 
 var fonts = ["Arial", "Verdana", "Times New Roman", "Courier New", "Impact", "Comic Sans MS", "Georgia", "Trebuchet MS", "Palatino", "Arial Black", "Tahoma"];
 function drawText() {
@@ -650,7 +625,12 @@ function sizeChange(){
 function DownloadImage(){
     var canvas = document.getElementById("board");
     var image = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
-    window.location.href=image;
+    // !! NAME THE FILE HERE !!
+    var link = document.createElement('a');
+    link.download = "download.png";
+    link.href = image;
+    link.click();
+    // !! NAME THE FILE HERE !!
 }
 
 window.onload = function (){
