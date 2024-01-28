@@ -1,9 +1,15 @@
 var drawOnCanvas; // Define drawOnCanvas globally
 var currentColor = "#000000";
 var context;
+var pictureBorder;
+pictureBorder = drawOnCanvas;
 var lineWidth = [0, 5, 10, 20, 30, 40, 50, 75, 100];
 var sizes = [8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 30, 36, 48, 72];
+var Maincursors = ["url('static/images/def.png'),auto","url('static/images/brush.png'), auto",   "url('static/images/pencil.png'), auto", "url('static/images/marker.png'), auto", "url('static/images/fill.png'), auto", "url('static/images/text.png'), auto", "url('static/images/line.png'), auto", "url('static/images/circle.png'), auto", "url('static/images/rectangle.png'), auto", "url('static/images/triangle.png'), auto", "url('static/images/square.png'), auto", "url('static/images/fillNotFull.png'), auto", "url('static/images/eraser.png'), auto", "url('static/images/checkedBoard.png'), auto", "url('static/images/blackBoard.png'), auto", "url('static/images/download.png'), auto", "url('static/images/customColor.png'), auto"];
+var Colorcursors = ["url('static/images/Red.png'), auto", "url('static/images/Blue.png'), auto", "url('static/images/Green.png'), auto", "url('static/images/Yellow.png'), auto", "url('static/images/Black.png'), auto", "url('static/images/White.png'), auto", "url('static/images/Orange.png'), auto", "url('static/images/Purple.png'), auto", "url('static/images/Pink.png'), auto", "url('static/images/Brown.png'), auto", "url('static/images/Grey.png'), auto" , "url('static/images/LightBlue.png'), auto", "url('static/images/Flesh.png'), auto"];
+var Cursor = Maincursors[0];
 function BrushPaint() {
+    Cursor = Maincursors[1];
     var canvas = document.getElementById('board');
     var drawOnCanvas = canvas.getContext('2d'); // Assign to the local variable
     var isDrawing = false;
@@ -166,52 +172,65 @@ function BlackBoard(){
 }
 
 function RedBrush() {
+    Cursor = Colorcursors[0];
     currentColor = "#ff0000";
 }
 
 function BlueBrush() {
+    Cursor = Colorcursors[1];
     currentColor = "#0000ff";
 }
 
 function GreenBrush() {
+    Cursor = Colorcursors[2];
     currentColor = "#32f04b";
 }
 
 function YellowBrush() {
+    Cursor = Colorcursors[3];
     currentColor = "#ffff00";
 }
 
 function BlackBrush() {
+    Cursor = Colorcursors[4];
     currentColor = "#000000";
 }
 
 function WhiteBrush(){
+    Cursor = Colorcursors[5];
     currentColor = "#ffffff";
 }
 
 function OrangeBrush(){
+    Cursor = Colorcursors[6];
     currentColor = "#ffa500"; 
 }
 
 function PurpleBrush(){
+    Cursor = Colorcursors[7];
     currentColor = "#800080";
 }
 
 function PinkBrush(){
+    Cursor = Colorcursors[8];
     currentColor = "#f700ff";
 }
 
 function BrownBrush(){
+    Cursor = Colorcursors[9];
     currentColor = "#7c4c2c";
 }
 
 function GreyBrush(){
+    Cursor = Colorcursors[10];
     currentColor = "#808080";
 }
 function LightBlueBrush(){
+    Cursor = Colorcursors[11];
     currentColor = "#00ffff";
 }
 function FleshBrush(){
+    Cursor = Colorcursors[12];
     currentColor = "#ffe4c4";
 }
 function CustomColor(){
@@ -334,6 +353,7 @@ function LineWidthChanger() {
         }
     });
 }
+
 
 function CheckedBoard(){
     var canvas = document.getElementById('board');
@@ -632,6 +652,40 @@ function DownloadImage(){
     link.click();
     // !! NAME THE FILE HERE !!
 }
+function UploadFromComputer() {
+    var canvas = document.getElementById("board");
+    if (!canvas) {
+      console.error("Canvas element with ID 'board' not found.");
+      return;
+    }
+  
+    var context = canvas.getContext("2d");
+    if (!context) {
+      console.error("Failed to get 2D drawing context.");
+      return;
+    }
+    var fileInput = document.createElement("input");
+    fileInput.type = "file";
+    fileInput.accept = "image/*"; 
+    fileInput.addEventListener("change", function() {
+      var file = this.files[0];
+      if (file) {
+        var reader = new FileReader();
+        reader.onload = function(event) {
+          var image = new Image();
+          image.onload = function() {
+            context.drawImage(image, 0, 0);
+          };
+          image.src = event.target.result; 
+        };
+        reader.readAsDataURL(file); 
+      } else {
+        console.error("Failed to load file.");
+      }
+    });
+  
+    fileInput.click();
+  }
 
 window.onload = function (){
     const brushButton = document.getElementById('Brush-btn');
@@ -698,4 +752,8 @@ window.onload = function (){
     LightBlueBrushButton.addEventListener('click', LightBlueBrush);
     const FleshBrushButton = document.getElementById("Flesh-btn");
     FleshBrushButton.addEventListener('click', FleshBrush);
+    const UploadButton = document.getElementById("Upload-btn");
+    UploadButton.addEventListener('click', UploadFromComputer);
+    const GridButton = document.getElementById("Grid");
+    GridButton.addEventListener('click', Grid);
 }
